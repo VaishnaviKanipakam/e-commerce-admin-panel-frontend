@@ -1,0 +1,39 @@
+.side-bar-items-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: #ffffff;
+}
+
+.icon-text-container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.menu-name{
+    font-size: 16px;
+    font-weight: 400;
+    margin-left: 20px;
+}
+
+.orders-count{
+    background-color: #000000;
+    margin-left: 30px;
+    border-radius: 50%;
+    font-size: 12px;
+    padding: 3px;
+}
+
+.categories-container{
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 7px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.menu-info{
+    font-size: 13px;
+    font-weight: 500;
+}

@@ -1,0 +1,35 @@
+.category-item-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    list-style-type: none;
+    height: fit-content;
+    width: fit-content;
+    background-color: #ffffff;
+    font-family: "Roboto";
+    margin: 15px;
+    border-radius: 9px;
+    font-family: "Roboto";
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.category-image{
+    width: 220px;
+    height: 220px;
+}
+
+.category-name{
+    font-size: 18px;
+    font-weight: 700;
+    color: #000000;
+    margin-left: 20px;
+}
+
+.item-count{
+    font-size: 13px;
+    color: #71797E;
+    margin-top: 0;
+    margin-left: 20px;
+}

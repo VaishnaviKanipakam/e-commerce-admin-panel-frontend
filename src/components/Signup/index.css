@@ -1,0 +1,36 @@
+.heading{
+    font-size: 30px;
+}
+
+.signum-form{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "Roboto";
+    background-color: #F8FAFC;
+}
+
+.signup-lable{
+    font-size: 13px;
+    margin-top: 10px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.signup-input{
+    width: 100%;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    background-color: #ffffff;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.span-element{
+    font-size: 15px;
+    color: blue;
+    text-decoration: none;
+}

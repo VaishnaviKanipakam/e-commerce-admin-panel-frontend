@@ -1,0 +1,30 @@
+.heading{
+    font-size: 30px;
+}
+
+.login-form{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "Roboto";
+    background-color: #F8FAFC;
+}
+
+.login-lable{
+    font-size: 13px;
+    margin-top: 10px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.login-input{
+    width: 100%;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    background-color: #ffffff;
+    padding: 10px;
+    margin-bottom: 10px;
+}
