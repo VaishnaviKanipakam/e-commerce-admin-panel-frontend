@@ -1,8 +1,9 @@
 .heading {
   font-size: 30px;
+  color: #000000;
 }
 
-.login-form {
+.add-category-form {
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -12,14 +13,7 @@
   background-color: #f8fafc;
 }
 
-.login-lable {
-  font-size: 13px;
-  margin-top: 10px;
-  color: #000000;
-  font-weight: bold;
-}
-
-.login-input {
+.add-category-input {
   width: 100%;
   outline: none;
   cursor: pointer;
@@ -29,7 +23,13 @@
   margin-bottom: 10px;
 }
 
-.err-message {
-  color: red;
-  font-size: 15px;
+.add-category-lable {
+  font-size: 13px;
+  margin-top: 10px;
+  color: #000000;
+  font-weight: bold;
+}
+
+.buttons-container {
+  display: flex;
 }

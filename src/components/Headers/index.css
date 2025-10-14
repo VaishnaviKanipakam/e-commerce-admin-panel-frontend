@@ -1,45 +1,45 @@
-.nav-bar-container{
-    height: 10vh;
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    background-color: #000000;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100vw;
+.nav-bar-container {
+  height: 10vh;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  background-color: #000000;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100vw;
 }
 
-.icon-brand-container{
-    display: flex;
-    align-items: center;
+.icon-brand-container {
+  display: flex;
+  align-items: center;
 }
 
-.brand-heading{
-    font-weight: bold;
-    margin-left: 10px;
-    font-family: "sans-serif";
+.brand-heading {
+  font-weight: bold;
+  margin-left: 10px;
+  font-family: "sans-serif";
 }
 
-.serach-icon-text-container{
-    display: flex;
-    align-items: center;
+.serach-icon-text-container {
+  display: flex;
+  align-items: center;
 }
 
-.search-text{
-    font-size: 11px;
-    font-weight: 700;
-    margin-left: 10px;
+.search-text {
+  font-size: 11px;
+  font-weight: 700;
+  margin-left: 10px;
 }
 
-.chat-notification-profile-container{
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
+.chat-notification-profile-container {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
 }
 
-.admin-name{
-    margin-left: 10px;
-    font-size: 20px;
+.admin-name {
+  margin-left: 10px;
+  font-size: 20px;
 }

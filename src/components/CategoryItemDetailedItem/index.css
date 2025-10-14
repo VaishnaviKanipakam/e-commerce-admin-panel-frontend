@@ -15,9 +15,14 @@
   padding: 0;
 }
 
+.image-container {
+  position: relative;
+}
+
 .category-image {
   width: 220px;
   height: 220px;
+  position: relative;
 }
 
 .category-name {
@@ -32,12 +37,4 @@
   color: #71797e;
   margin-top: 0;
   margin-left: 20px;
-}
-
-.edit-button-category-name-count-container {
-  display: flex;
-  width: 220px;
-  align-items: center;
-  justify-content: space-between;
-  width: fit-content;
 }

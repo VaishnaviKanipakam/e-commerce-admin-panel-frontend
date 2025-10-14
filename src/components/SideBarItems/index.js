@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Button from '@mui/material/Button';
 import Cookies from 'js-cookie'
-import {Navigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
@@ -17,15 +17,19 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import "./index.css"
 
 const SideBarItems = () => {
+    const navigate = useNavigate()
     const onClickLogOut = () => {
         Cookies.remove("jwt_token")
-        window.location.href = '/login';
+        localStorage.removeItem("user")
+        navigate('/login', { replace: true });
     }
 
-    const jwtToken  = Cookies.get("jwt_token")
-    if(jwtToken === undefined){
-        return <Navigate to='/login' />
+    useEffect (() => {
+      const isAuth  = Cookies.get("jwt_token")
+    if(isAuth && isAuth === undefined){
+        navigate('/login', { replace: true });    
     }
+    }, [])
 
   return (
     <div className='side-bar-items-container'>
