@@ -35,3 +35,10 @@
     color: blue;
     text-decoration: none;
 }
+
+.error-msg{
+    color: red;
+    font-family: "Roboto";
+    font-size: 17px;
+    margin: 0px;
+}

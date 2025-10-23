@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import { Link } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import "./index.css";
 
 import Dialog from "@mui/material/Dialog";
@@ -26,7 +27,9 @@ const CategoryItem = (props) => {
   const [editCategoryName, setEditCategoryName] = useState("");
   const [editCategoryCount, setEditCategoryCount] = useState([]);
 
-  
+  // const Transition = React.forwardRef(function Transition(props, ref) {
+  //   return <Slide direction="up" ref={ref} {...props} />;
+  // });
 
   const onSubmitEditModalForm = async (event) => {
     event.preventDefault();
@@ -65,23 +68,33 @@ const CategoryItem = (props) => {
     setOpen(false);
   };
 
+//   const navigate = useNavigate();
+
+// const handleNavigate = () => {
+//   navigate(`/category-item-detailed-page/${categoryId}`);
+// };
+
+  // console.log("68CategooryItemId", categoryId)
+
 
   return (
     <li
       className="category-item-container"
     >
-      <Link to={`/category-item-detailed-page/${categoryId}`}>
+      <Link to={`/dashboard/category-item-detailed-page/${categoryId}`}>
         <img
           src={categoryImage}
           alt={categoryName}
           className="category-image"
+          //  onClick={handleNavigate}
+          //  style={{ cursor: "pointer" }}  
         />
       </Link>
      
       <Dialog
         open={open}
         TransitionComponent={Transition}
-        keepMounted
+        keepMounted={false}
         onClose={handleClose}
       >
         <form onSubmit={onSubmitEditModalForm}>
@@ -118,7 +131,7 @@ const CategoryItem = (props) => {
               autoFocus
               required
               margin="dense"
-              id="categotyCount"
+              id="categoryCount"
               name="categoryCount"
               label="Category Count"
               type="text"
@@ -129,7 +142,7 @@ const CategoryItem = (props) => {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button  type="button" onClick={handleClose}>Cancel</Button>
             <Button onClick={handleClose} type="submit">
               Edit
             </Button>
@@ -141,8 +154,9 @@ const CategoryItem = (props) => {
           <h1 className="category-name">{categoryName}</h1>
           <p className="item-count">{itemCount} items</p>
         </div>
-        <div>
+        <div> 
           <Button
+           type="button"
             onClick={handleClickOpen}
             style={{
               backgroundColor: "transparent",

@@ -51,7 +51,7 @@ const Dashboard = () => {
           <div className="heading-button-container">
             <h1 className="category-heading">Categories</h1>
             <Link to="/add-category">
-              <Button variant="contained" style={{ backgroundColor: "blue" }}>
+              <Button  type="button" variant="contained" style={{ backgroundColor: "blue" }}>
                 <AddOutlinedIcon /> Add Category
               </Button>
             </Link>

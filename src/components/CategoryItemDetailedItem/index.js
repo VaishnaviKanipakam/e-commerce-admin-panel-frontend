@@ -63,7 +63,7 @@ const CategoryItemDetailedItem = (props) => {
       setEditCategoryTypeName("");
       setEditCategoryTypeCount("");
       SetEditCategoryType("");
-    }
+    } 
   };
 
   return (
@@ -81,6 +81,7 @@ const CategoryItemDetailedItem = (props) => {
         {isMouseOver && (
           <Button
             onClick={handleClickOpen}
+            type="button"
             variant="contained"
             style={{
               backgroundColor: "blue",
@@ -161,7 +162,7 @@ const CategoryItemDetailedItem = (props) => {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button type="button" onClick={handleClose}>Cancel</Button>
             <Button onClick={handleClose} type="submit">
               Edit
             </Button>

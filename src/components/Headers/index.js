@@ -5,21 +5,22 @@ import SearchIcon from "@mui/icons-material/Search";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import Avatar from "@mui/material/Avatar";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import "./index.css";
 
 const Headers = () => {
   const name = JSON.parse(localStorage.getItem("user"));
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    const isAuth = Cookies.get("jwt_token");
-    if (isAuth && isAuth !== "undefined") {
-      navigate("/dashboard", { replace: true });
-    } else if (isAuth && isAuth === "undefined") {
-      navigate("/login", { replace: true });
-    }
-  }, []);
+  // useEffect(() => {
+  //   const isAuth = Cookies.get("jwt_token");
+  //   if (isAuth && isAuth !== "undefined") {
+  //     navigate("/dashboard", { replace: true });
+  //   } else if (isAuth && isAuth === "undefined") {
+  //     navigate("/login", { replace: true }); 
+  //   }
+  //   console.log("22HeaderisAuth", isAuth)
+  // }, []);
 
   return (
     <nav className="nav-bar-container">

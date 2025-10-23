@@ -18,6 +18,11 @@
 .category-image {
   width: 220px;
   height: 220px;
+  /* cursor: pointer;
+  z-index: 2;
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto; */
 }
 
 .category-name {

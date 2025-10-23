@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "./index.css";
 import Cookies from "js-cookie";
 import Button from "@mui/material/Button";
+import {jwtDecode} from "jwt-decode";
+import TextField from "@mui/material/TextField";
+import { inputLabelClasses } from "@mui/material/InputLabel";
 
 const Login = (props) => {
   const navigate = useNavigate();
@@ -12,56 +15,150 @@ const Login = (props) => {
 
   const onSubmitSuccess = (token) => {
     Cookies.set("jwt_token", token, { expires: 10 });
-    navigate("/dashboard", { replace: true });
-  };
-
-  const onChangeMobileNumber = (event) => {
-    setMobileNumber(event.target.value);
-  };
-
-  const onChangePassword = (event) => {
-    setPassword(event.target.value);
+    navigate("/dashboard");
+    const decoded = jwtDecode(token)
+    console.log("18Login", decoded)
   };
 
   const renderMobileNumberField = () => {
     return (
-      <div>
-        <label htmlFor="mobileNumber" className="login-lable">
-          Mobile Number
-        </label>
-        <br />
-        <input
-          id="mobileNumber"
-          value={mobileNumber}
-          className="login-input"
-          type="text"
-          onChange={onChangeMobileNumber}
-        />
-      </div>
+      // <div>
+      //   <label htmlFor="mobileNumber" className="login-lable">
+      //     Mobile Number
+      //   </label>
+      //   <br />
+      //   <input
+      //     id="mobileNumber"
+      //     value={mobileNumber}
+      //     className="login-input"
+      //     type="text"
+      //     onChange={onChangeMobileNumber}
+      //   />
+      // </div>
+
+
+      <TextField
+                id="mobileNumber"
+                label="Mobile Number"
+                variant="outlined"
+                value={mobileNumber}
+                type="text"
+                 onChange={(e) => setMobileNumber(e.target.value)}
+                required
+                style={{
+                  width: "304px",
+                  height: "68px",
+                  marginBottom: "10px",
+                }}
+                InputLabelProps={{
+                  sx: {
+                    color: "gray",
+                    fontFamily: "serif",
+                    [`&.${inputLabelClasses.shrink}`]: {
+                      color: "#000000",
+                      fontFamily: "serif",
+                    },
+                  },
+                }}
+                sx={{
+                  ".MuiOutlinedInput-root": {
+                    backgroundColor: "#ffffff",
+                    borderRadius: "12px",
+                    input: {
+                      fontFamily: "serif",
+                      fontWeight: 400,
+                      fontStyle: "Regular",
+                      fontSize: "16px",
+                      lineHeight: "34px",
+                      letterSpacing: "0%",
+                      textAlign: "center",
+                      color: "#000000",
+                    },
+                    fieldSet: {
+                      border: "1.5px solid gray",
+                      borderRadius: "12px",
+                    },
+                    "&.Mui-focused fieldset": {
+                      border: "1.5px solid #000000",
+                      color: "#000000",
+                    },
+                  },
+                }}
+              />
     );
   };
 
   const renderPasswordField = () => {
     return (
-      <div>
-        <label htmlFor="mobipasswordleNumber" className="login-lable">
-          Password
-        </label>
-        <br />
-        <input
-          id="password"
-          value={password}
-          className="login-input"
-          type="password"
-          onChange={onChangePassword}
-        />
-      </div>
+      // <div>
+      //   <label htmlFor="mobipasswordleNumber" className="login-lable">
+      //     Password
+      //   </label>
+      //   <br />
+      //   <input
+      //     id="password"
+      //     value={password}
+      //     className="login-input"
+      //     type="password"
+      //     onChange={onChangePassword}
+      //   />
+      // </div>
+
+
+       <TextField
+                id="password"
+                label="Password"
+                variant="outlined"
+                value={password}
+                type="password"
+                 onChange={(e) => setPassword(e.target.value)}
+                required
+                style={{
+                  width: "304px",
+                  height: "68px",
+                  marginBottom: "10px",
+                }}
+                InputLabelProps={{
+                  sx: {
+                    color: "gray",
+                    fontFamily: "serif",
+                    [`&.${inputLabelClasses.shrink}`]: {
+                      color: "#000000",
+                      fontFamily: "serif",
+                    },
+                  },
+                }}
+                sx={{
+                  ".MuiOutlinedInput-root": {
+                    backgroundColor: "#ffffff",
+                    borderRadius: "12px",
+                    input: {
+                      fontFamily: "serif",
+                      fontWeight: 400,
+                      fontStyle: "Regular",
+                      fontSize: "16px",
+                      lineHeight: "34px",
+                      letterSpacing: "0%",
+                      textAlign: "center",
+                      color: "#000000",
+                    },
+                    fieldSet: {
+                      border: "1.5px solid gray",
+                      borderRadius: "12px",
+                    },
+                    "&.Mui-focused fieldset": {
+                      border: "1.5px solid #000000",
+                      color: "#000000",
+                    },
+                  },
+                }}
+              />
     );
   };
 
   const onSubmitLiginForm = async (event) => {
     event.preventDefault();
-    const loginDetails = { mobileNumber, password };
+    const loginDetails = { mobileNumber, password,  };
     const url = "http://localhost:3004/login";
     if (mobileNumber !== "" && password !== "") {
       const options = {
@@ -73,16 +170,20 @@ const Login = (props) => {
         body: JSON.stringify(loginDetails),
       };
       const response = await fetch(url, options);
+      console.log("76LoginResponse", response)
       if (response.ok === true) {
         const data = await response.json();
+        console.log("79LoginData", data)
         onSubmitSuccess(data.token);
+        console.log("178LiginToken", data.token)
+
         localStorage.setItem("user", JSON.stringify(data));
         setMobileNumber("");
         setPassword("");
       } else if (response.ok === false) {
-        console.log("82Response", response);
+        console.log("84LoginResponse", response);
         const errorMessage = await response.json();
-        console.log("84Data", errorMessage);
+        console.log("86LogiData", errorMessage);
         setErrMsg(errorMessage);
         setMobileNumber("");
         setPassword("");
@@ -100,12 +201,12 @@ const Login = (props) => {
     if (isAuth && isAuth !== "undefined") {
       navigate("/dashboard", { replace: true });
 
-      console.log("102", isAuth && isAuth !== "undefined");
+      console.log("102Login", isAuth && isAuth !== "undefined");
     } else if (isAuth && isAuth === "undefined") {
       navigate("/login", { replace: true });
     }
-    console.log("107", isAuth);
-    console.log("108", isAuth !== "undefined");
+    console.log("107Login", isAuth);
+    console.log("108Login", isAuth !== "undefined");
   }, []);
 
   return (

@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import CategoryItemDetailedItem from "../CategoryItemDetailedItem";
 import SideBarItems from "../SideBarItems";
 import Headers from "../Headers";
-import Button from "@mui/material/Button";
+import Button from "@mui/material/Button"; 
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
 import "./index.css";
 
 import TextField from "@mui/material/TextField";
@@ -56,7 +56,7 @@ const CategoryItemDetailedPage = () => {
     console.log("18CategoryDetailedPageResponse", response);
     if (response.ok === true) {
       const data = await response.json();
-      console.log("22CategoryDetailedPagedata", data);
+      console.log("59CategoryDetailedPagedata", data);
       const updatedData = data.map((eachCategory) => ({
         eachCategoryId: eachCategory.each_category_id,
         categoryImage: eachCategory.category_image,
@@ -102,7 +102,7 @@ const CategoryItemDetailedPage = () => {
   useEffect(() => {
     getCategoryDetailsList();
   }, []);
-  console.log("36", categoryDetailsList);
+ 
 
   return (
     <div className="category-item-detailed-page-container">
@@ -114,6 +114,7 @@ const CategoryItemDetailedPage = () => {
         <div className="category-type-container">
           <div className="add-back-buttons-container">
             <Button
+             type="button"
               variant="contained"
               onClick={handleClickOpen}
               style={{ backgroundColor: "blue" }}
@@ -122,6 +123,7 @@ const CategoryItemDetailedPage = () => {
             </Button>
             <Link to="/dashboard">
               <Button
+               type="button"
                 variant="contained"
                 style={{
                   marginTop: "20px",
@@ -137,7 +139,7 @@ const CategoryItemDetailedPage = () => {
           <Dialog
             open={open}
             TransitionComponent={Transition}
-            keepMounted
+            keepMounted = {false}
             onClose={handleClose}
             aria-describedby="alert-dialog-slide-description"
           >
@@ -198,7 +200,7 @@ const CategoryItemDetailedPage = () => {
                 />
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
+                <Button  type="button" onClick={handleClose}>Cancel</Button>
                 <Button onClick={handleClose} type="submit">
                   Add
                 </Button>

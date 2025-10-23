@@ -10,15 +10,14 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<Signup />}></Route>
-        <Route exact path="/login" element={<Login />}></Route>
-        <Route exact path="/dashboard" element={<Dashboard />} />
-        <Route exact path="/add-category" element={<AddCategory />}></Route>
+        <Route path="/" element={<Signup />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/add-category" element={<AddCategory />}></Route>
         <Route
-          exact
-          path="/category-item-detailed-page/:id"
+          path="/dashboard/category-item-detailed-page/:id"
           element={<CategoryItemDetailedPage />}
-        ></Route>
+        />
       </Routes>
     </BrowserRouter>
   );
