@@ -4,6 +4,8 @@ import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import AddCategory from "./components/AddCategory";
 import CategoryItemDetailedPage from "./components/CategoryItemDetailedPage";
+import NotFound from "./components/NotFound";
+import ProtectedRoute from "./components/ProtectedRoute";
 import "./App.css";
 
 const App = () => {
@@ -12,12 +14,13 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Signup />}></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/add-category" element={<AddCategory />}></Route>
+        <Route path="/dashboard" element={<ProtectedRoute allowedRoles={["admin", "customer"]}><Dashboard /></ProtectedRoute> } />
+        <Route path="/add-category" element={<ProtectedRoute allowedRoles={["admin"]}> <AddCategory /> </ProtectedRoute> }></Route>
         <Route
-          path="/dashboard/category-item-detailed-page/:id"
-          element={<CategoryItemDetailedPage />}
+          path="/category-item-detailed-page/:id"
+          element={<ProtectedRoute allowedRoles={["admin", "customer"]}> <CategoryItemDetailedPage /> </ProtectedRoute> }
         />
+        <Route path="/not-found" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
   );

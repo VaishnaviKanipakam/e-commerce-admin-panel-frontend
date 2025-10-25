@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import Cookies from "js-cookie";
+
 import "./index.css";
 
 import TextField from "@mui/material/TextField";
@@ -10,6 +11,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
+import { jwtDecode } from "jwt-decode";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -17,15 +19,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const CategoryItemDetailedItem = (props) => {
   const { eachCategoryDetails, getCategoryDetailsList } = props;
-  const { eachCategoryId, categoryImage, categoryName, itemCount } =
+  const { eachCategoryId, categoryImage, categoryName, itemCount, categoryType, categoryPrice} =
     eachCategoryDetails;
   const [isMouseOver, setIsMouseOver] = useState(false);
   const [open, setOpen] = React.useState(false);
-  const [editCategoryTypeImage, setEditCategoryTypeImage] = useState("");
-  const [editCategoryTypeName, setEditCategoryTypeName] = useState("");
-  const [editCategoryTypeCount, setEditCategoryTypeCount] = useState("");
-  const [editCategoryType, SetEditCategoryType] = useState("");
+  const [editCategoryTypeImage, setEditCategoryTypeImage] = useState(categoryImage);
+  const [editCategoryTypeName, setEditCategoryTypeName] = useState(categoryName);
+  const [editCategoryTypeCount, setEditCategoryTypeCount] = useState(itemCount);
+  const [editCategoryType, setEditCategoryType] = useState(categoryType);
+  const [editCategoryPrice, setEditCategoryPrice] = useState(categoryPrice);
   const jwtToken = Cookies.get("jwt_token");
+  const decode = jwtDecode(jwtToken);
+  console.log("33CategoryItemDetailedItemUserId", decode.id)
+  const userId = decode.id
+  
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -37,12 +44,13 @@ const CategoryItemDetailedItem = (props) => {
 
   const onSubmitEditCategoryTypeForm = async (event) => {
     event.preventDefault();
-    const ulr = `http://localhost:3004/edit_catgory_type?each_category_type_id=${eachCategoryId}`;
+    const url = `http://localhost:3004/edit_catgory_type?each_category_type_id=${eachCategoryId}`;
     const editCategoryTypeDetails = {
       editCategoryTypeImage,
       editCategoryTypeName,
       editCategoryTypeCount,
       editCategoryType,
+      editCategoryPrice
     };
 
     const options = {
@@ -55,16 +63,40 @@ const CategoryItemDetailedItem = (props) => {
       body: JSON.stringify(editCategoryTypeDetails),
     };
 
-    const response = await fetch(ulr, options);
+    const response = await fetch(url, options);
     console.log("54CategoryItemDetailedItemResponse", response);
     if (response.ok === true) {
       getCategoryDetailsList();
       setEditCategoryTypeImage("");
       setEditCategoryTypeName("");
       setEditCategoryTypeCount("");
-      SetEditCategoryType("");
+      setEditCategoryType("");
+      setEditCategoryPrice("")
     } 
   };
+
+  const onClickAddTocart = async () => {
+    const cartItemDetails = {eachCategoryId, userId, editCategoryTypeImage, editCategoryTypeName, editCategoryType, editCategoryPrice, }
+    const url = `http://localhost:3004/add-to-cart`
+
+    const options = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwtToken}`,
+      },
+      body: JSON.stringify(cartItemDetails),
+    };
+    const response = await  fetch(url, options)
+    console.log("92CategoryItemDetailedItemReponse", response)
+    const data = await response.json()
+    console.log("94CategoryItemDetailedItemData", data)
+  }
+
+  useEffect (() => {
+    
+  },[isMouseOver])
 
   return (
     <li className="category-item-container">
@@ -78,7 +110,7 @@ const CategoryItemDetailedItem = (props) => {
           alt={categoryName}
           className="category-image"
         />
-        {isMouseOver && (
+        {decode.userType === "admin" && isMouseOver && (
           <Button
             onClick={handleClickOpen}
             type="button"
@@ -93,8 +125,9 @@ const CategoryItemDetailedItem = (props) => {
             <BorderColorOutlinedIcon /> Edit
           </Button>
         )}
+      
       </div>
-
+        {decode.userType === "admin" ? (
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -158,7 +191,21 @@ const CategoryItemDetailedItem = (props) => {
               fullWidth
               variant="standard"
               value={editCategoryType}
-              onChange={(event) => SetEditCategoryType(event.target.value)}
+              onChange={(event) => setEditCategoryType(event.target.value)}
+            />
+
+            <TextField
+              autoFocus
+              required
+              margin="dense"
+              id="categoryPrice"
+              name="categoryPrice"
+              label="Category Price"
+              type="number"
+              fullWidth
+              variant="standard"
+              value={editCategoryPrice}
+              onChange={(event) => setEditCategoryPrice(event.target.value)}
             />
           </DialogContent>
           <DialogActions>
@@ -169,8 +216,22 @@ const CategoryItemDetailedItem = (props) => {
           </DialogActions>
         </form>
       </Dialog>
-      <h1 className="category-name">{categoryName}</h1>
-      <p className="item-count">{itemCount} items</p>
+      ): null}
+          <h1 className="category-name">{categoryName}</h1>
+          <p className="item-count">{itemCount} items</p>
+          <p className="item-price">{categoryPrice} /-</p>
+          <Button variant="contained" style={{
+            backgroundColor: "blue", 
+            color: "#ffffff", 
+            fontFamily: "Roboto", 
+            width: "100%", 
+            borderBottomLeftRadius: "9px", 
+            borderBottomRightRadius: "9px"}}
+            onClick={onClickAddTocart}
+            >
+              Add To Cart
+            </Button>
+      
     </li>
   );
 };

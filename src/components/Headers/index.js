@@ -10,6 +10,7 @@ import "./index.css";
 
 const Headers = () => {
   const name = JSON.parse(localStorage.getItem("user"));
+  console.log("13headers", name)
   // const navigate = useNavigate();
 
   // useEffect(() => {
@@ -47,9 +48,10 @@ const Headers = () => {
             height: "30px",
           }}
         >
-          {name.result[0].name[0].toUpperCase()}
+          {name !== null ?  (name.result[0].name[0].toUpperCase()) : null}
         </Avatar>
-        <h1 className="admin-name">{name.result[0].name.toUpperCase()}</h1>
+        {name !== null ? (<h1 className="admin-name">{name.result[0].name.toUpperCase()}</h1>) : null}
+        
       </div>
     </nav>
   );

@@ -14,10 +14,12 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import TipsAndUpdatesOutlinedIcon from '@mui/icons-material/TipsAndUpdatesOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import { jwtDecode } from 'jwt-decode';
 import "./index.css"
 
 const SideBarItems = () => {
     const navigate = useNavigate()
+     const jwtToken = Cookies.get("jwt_token");
     const onClickLogOut = () => {
         Cookies.remove("jwt_token")
         localStorage.removeItem("user")
@@ -31,6 +33,10 @@ const SideBarItems = () => {
     }
     }, [])
 
+    const decoded = jwtDecode(jwtToken)
+    console.log("37SideBarItems", decoded.userType)
+    console.log("38SidebarItems", jwtToken)
+
   return (
     <div className='side-bar-items-container'>
          <Button 
@@ -38,7 +44,7 @@ const SideBarItems = () => {
                 onClick={onClickLogOut} 
                 variant="contained" 
                 type="submit" 
-                style={{marginTop: "20px", backgroundColor: "blue"}}
+                style={{marginTop: "20px", backgroundColor: "blue", width:"150px"}}
                 > 
                       Logout  
               </Button>
@@ -59,14 +65,20 @@ const SideBarItems = () => {
         <FolderOutlinedIcon style={{fontSize: 25}}/>
         <h1 className='menu-name'>Categories</h1>
       </div>
+      {decoded.userType === "admin" ?
+      (  
       <div className='icon-text-container'>
-        <SupervisorAccountOutlinedIcon style={{fontSize: 25}}/>
-        <h1 className='menu-name'>Customers</h1>
-      </div>
+        <SupervisorAccountOutlinedIcon style={{fontSize: 25}}/> 
+          <h1 className='menu-name'>Customers</h1>
+          </div>
+          ) : null}
+       {decoded.userType === "admin" ?
+      ( 
       <div className='icon-text-container'>
         <SignalCellularAltIcon style={{fontSize: 25}}/>
         <h1 className='menu-name'>Reports</h1>
       </div>
+      ) : null}
       <div className='icon-text-container'>
         <StarBorderOutlinedIcon style={{fontSize: 25}}/>
         <h1 className='menu-name'>Cupons</h1>
@@ -84,7 +96,7 @@ const SideBarItems = () => {
         <TipsAndUpdatesOutlinedIcon style={{fontSize: 25}}/>
         <h1 className='menu-name'>Products Updates</h1>
       </div>
-      <p className='menu-info'>Settings</p>
+      <p className='menu-info'>Settings</p> 
       <div className='icon-text-container'>
         <PermIdentityOutlinedIcon style={{fontSize: 25}}/>
         <h1 className='menu-name'>Personal Settings</h1>

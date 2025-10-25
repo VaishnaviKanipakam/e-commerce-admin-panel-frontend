@@ -12,6 +12,7 @@ import TextField from "@mui/material/TextField";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -26,6 +27,7 @@ const CategoryItem = (props) => {
   const [editCategoryImage, setEditCategoryImage] = useState("");
   const [editCategoryName, setEditCategoryName] = useState("");
   const [editCategoryCount, setEditCategoryCount] = useState([]);
+  const decoded = jwtDecode(jwtToken)
 
   // const Transition = React.forwardRef(function Transition(props, ref) {
   //   return <Slide direction="up" ref={ref} {...props} />;
@@ -81,7 +83,7 @@ const CategoryItem = (props) => {
     <li
       className="category-item-container"
     >
-      <Link to={`/dashboard/category-item-detailed-page/${categoryId}`}>
+      <Link to={`/category-item-detailed-page/${categoryId}`}>
         <img
           src={categoryImage}
           alt={categoryName}
@@ -90,8 +92,8 @@ const CategoryItem = (props) => {
           //  style={{ cursor: "pointer" }}  
         />
       </Link>
-     
-      <Dialog
+     {decoded.userType === "admin" ? 
+     ( <Dialog
         open={open}
         TransitionComponent={Transition}
         keepMounted={false}
@@ -148,12 +150,13 @@ const CategoryItem = (props) => {
             </Button>
           </DialogActions>
         </form>
-      </Dialog>
+      </Dialog>) : null }
       <div className="edit-button-category-name-count-container">
         <div>
           <h1 className="category-name">{categoryName}</h1>
           <p className="item-count">{itemCount} items</p>
         </div>
+        {decoded.userType === "admin" ? (
         <div> 
           <Button
            type="button"
@@ -168,6 +171,7 @@ const CategoryItem = (props) => {
             <BorderColorOutlinedIcon style={{ color: "blue" }} />
           </Button>
         </div>
+        ) : null}
       </div>
     </li>
   );

@@ -6,11 +6,13 @@ import Button from "@mui/material/Button";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 import "./index.css";
 
 const Dashboard = () => {
   const [categoriesList, setCategoriesList] = useState([]);
   const jwtToken = Cookies.get("jwt_token");
+  const decoded = jwtDecode(jwtToken)
 
   const getCategoriesList = async () => {
     const url = "http://localhost:3004/get_category";
@@ -50,11 +52,14 @@ const Dashboard = () => {
         <div className="category-container">
           <div className="heading-button-container">
             <h1 className="category-heading">Categories</h1>
-            <Link to="/add-category">
+            {decoded.userType === "admin" ? (
+              <Link to="/add-category">
               <Button  type="button" variant="contained" style={{ backgroundColor: "blue" }}>
                 <AddOutlinedIcon /> Add Category
               </Button>
             </Link>
+            ): null}
+            
           </div>
           <ul className="categories-list-conatiner">
             {categoriesList.map((eachCategory) => (

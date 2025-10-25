@@ -16,13 +16,14 @@
 }
 
 .side-menu-bar-container {
-  padding: 15px;
+  padding: 15px; 
   width: 20vw;
   background-color: #000066;
   box-sizing: border-box;
   color: #ffffff;
-  overflow: scroll;
+  overflow-y: scroll;
   scrollbar-width: none;
+  
 }
 
 .category-container {

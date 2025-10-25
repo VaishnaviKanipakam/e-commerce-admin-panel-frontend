@@ -5,7 +5,9 @@ import SideBarItems from "../SideBarItems";
 import Headers from "../Headers";
 import Button from "@mui/material/Button"; 
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+
 import "./index.css";
 
 import TextField from "@mui/material/TextField";
@@ -28,7 +30,9 @@ const CategoryItemDetailedPage = () => {
   const [addCategoryName, setAddCategoryName] = useState("");
   const [addCategoryCount, setAddCategoryCount] = useState([]);
   const [addCategoryType, setAddCategoryType] = useState("");
+  const [addCategoryPrice, setCategoryPrice] = useState();
   const jwtToken = Cookies.get("jwt_token");
+  const decoded = jwtDecode(jwtToken)
 
   const [open, setOpen] = React.useState(false);
 
@@ -63,6 +67,7 @@ const CategoryItemDetailedPage = () => {
         categoryName: eachCategory.category_name,
         itemCount: eachCategory.item_count,
         categoryType: eachCategory.category_type,
+        categoryPrice: eachCategory.category_price 
       }));
       setCategoryDetailsList(updatedData);
     }
@@ -75,6 +80,7 @@ const CategoryItemDetailedPage = () => {
       addCategoryImage,
       addCategoryName,
       addCategoryCount,
+      addCategoryPrice
     };
     const url = `http://localhost:3004/add_category_type?category_id=${params.id}`;
 
@@ -89,6 +95,7 @@ const CategoryItemDetailedPage = () => {
     };
 
     const response = await fetch(url, options);
+    console.log("98CategoryItemDetaildPageresponse", response);
     console.log("91CategoryItemDetailedPageResponse", response);
     if (response.ok === true) {
       getCategoryDetailsList();
@@ -96,12 +103,14 @@ const CategoryItemDetailedPage = () => {
       setAddCategoryName("");
       setAddCategoryType("");
       setAddCategoryCount("");
+      setCategoryPrice("")
+      
     }
   };
 
   useEffect(() => {
     getCategoryDetailsList();
-  }, []);
+  }, [params.id]);
  
 
   return (
@@ -113,6 +122,7 @@ const CategoryItemDetailedPage = () => {
         </div>
         <div className="category-type-container">
           <div className="add-back-buttons-container">
+           {decoded.userType === "admin" ? (
             <Button
              type="button"
               variant="contained"
@@ -121,6 +131,7 @@ const CategoryItemDetailedPage = () => {
             >
               <AddOutlinedIcon /> Add Category
             </Button>
+           ) : null}
             <Link to="/dashboard">
               <Button
                type="button"
@@ -135,7 +146,7 @@ const CategoryItemDetailedPage = () => {
               </Button>
             </Link>
           </div>
-
+          {decoded.userType === "admin" ? (
           <Dialog
             open={open}
             TransitionComponent={Transition}
@@ -185,6 +196,21 @@ const CategoryItemDetailedPage = () => {
                   value={addCategoryCount}
                   onChange={(event) => setAddCategoryCount(event.target.value)}
                 />
+
+                <TextField
+                  autoFocus
+                  required
+                  margin="dense"
+                  id="categoryPrice"
+                  name="categoryPrice"
+                  label="Category Price"
+                  type="number"
+                  fullWidth
+                  variant="standard"
+                  value={addCategoryPrice}
+                  onChange={(event) => setCategoryPrice(event.target.value)}
+                />
+
                 <TextField
                   autoFocus
                   required
@@ -198,6 +224,7 @@ const CategoryItemDetailedPage = () => {
                   value={addCategoryType}
                   onChange={(event) => setAddCategoryType(event.target.value)}
                 />
+
               </DialogContent>
               <DialogActions>
                 <Button  type="button" onClick={handleClose}>Cancel</Button>
@@ -207,7 +234,7 @@ const CategoryItemDetailedPage = () => {
               </DialogActions>
             </form>
           </Dialog>
-
+          ): null}
           <ul className="categories-list-conatiner">
             {categoryDetailsList.map((eachCategory) => (
               <CategoryItemDetailedItem
