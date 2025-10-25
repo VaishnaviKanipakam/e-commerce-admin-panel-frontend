@@ -30,7 +30,6 @@ const CategoryItemDetailedItem = (props) => {
   const [editCategoryPrice, setEditCategoryPrice] = useState(categoryPrice);
   const jwtToken = Cookies.get("jwt_token");
   const decode = jwtDecode(jwtToken);
-  console.log("33CategoryItemDetailedItemUserId", decode.id)
   const userId = decode.id
   
 
@@ -77,7 +76,7 @@ const CategoryItemDetailedItem = (props) => {
 
   const onClickAddTocart = async () => {
     const cartItemDetails = {eachCategoryId, userId, editCategoryTypeImage, editCategoryTypeName, editCategoryType, editCategoryPrice, }
-    const url = `http://localhost:3004/add-to-cart`
+    const url = `http://localhost:3004/add_to_cart`
 
     const options = {
       method: "POST",
@@ -95,8 +94,8 @@ const CategoryItemDetailedItem = (props) => {
   }
 
   useEffect (() => {
-    
-  },[isMouseOver])
+    console.log("97CategoryItemDetailedItemUserId", decode.id)
+  },[])
 
   return (
     <li className="category-item-container">

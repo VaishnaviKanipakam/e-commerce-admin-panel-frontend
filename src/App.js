@@ -6,6 +6,7 @@ import AddCategory from "./components/AddCategory";
 import CategoryItemDetailedPage from "./components/CategoryItemDetailedPage";
 import NotFound from "./components/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Cart from "./components/Cart";
 import "./App.css";
 
 const App = () => {
@@ -18,8 +19,9 @@ const App = () => {
         <Route path="/add-category" element={<ProtectedRoute allowedRoles={["admin"]}> <AddCategory /> </ProtectedRoute> }></Route>
         <Route
           path="/category-item-detailed-page/:id"
-          element={<ProtectedRoute allowedRoles={["admin", "customer"]}> <CategoryItemDetailedPage /> </ProtectedRoute> }
-        />
+          element={<ProtectedRoute allowedRoles={["admin", "customer"]}> <CategoryItemDetailedPage /> </ProtectedRoute> }>
+        </Route>
+        <Route path="/cart" element={<ProtectedRoute allowedRoles={["admin", "customer"]}><Cart /></ProtectedRoute>}></Route>
         <Route path="/not-found" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
