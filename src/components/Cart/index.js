@@ -15,49 +15,54 @@ const Cart = () => {
     const url = `http://localhost:3004/get_cart_items?user_id=${userId}`;
 
     const options = {
-        method: "GET",
-        headers: {
-            accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${jwtToken}`
-        }
-    }
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    };
     const response = await fetch(url, options);
     console.log("25CartResponse", response);
-    if(response.ok === true){
-        const successData = await response.json();
-        console.log("28CartsuccessData", successData)
-        const updatedSuccessData = successData.map(eachItem => ({
-            productId: eachItem.cart_product_id,
-            productImage: eachItem.product_image,
-            productName: eachItem.product_name,
-            productPrice: eachItem.product_price,
-            produtcType: eachItem.product_type,
-            productCategoryId: eachItem.each_category_id
-
-    }))
-    setCatrItemsList(updatedSuccessData);
-    }else if (response.ok === false){
-        const failData = await response.json()
-        console.log("39CartFailData", failData)
+    if (response.ok === true) {
+      const successData = await response.json();
+      console.log("28CartsuccessData", successData);
+      const updatedSuccessData = successData.map((eachItem) => ({
+        productId: eachItem.cart_product_id,
+        productImage: eachItem.product_image,
+        productName: eachItem.product_name,
+        productPrice: eachItem.product_price,
+        produtcType: eachItem.product_type,
+        productCategoryId: eachItem.each_category_id,
+        productQuantity: eachItem.product_quantity,
+        userId: eachItem.user_id,
+      }));
+      setCatrItemsList(updatedSuccessData);
+    } else if (response.ok === false) {
+      const failData = await response.json();
+      console.log("39CartFailData", failData);
     }
   };
-console.log("42cart", cartItemsList.length)
+  console.log("42cart", cartItemsList.length);
 
   useEffect(() => {
-        getCartItems()
-    }, [])
+    getCartItems();
+  }, []);
 
   return (
-  <div className="cart-container">
-    <h1 className="cart-heading">Welcome to cart</h1>
-    <ul className="cart-items-ul-container">
-        {cartItemsList.map(eachCartItem => ((
-            <CartItemPage key={eachCartItem.productId} productDetails={eachCartItem}/>
-        )))}
-    </ul>
-  </div>
-)
+    <div className="cart-container">
+      <h1 className="cart-heading">Welcome to cart</h1>
+      <ul className="cart-items-ul-container">
+        {cartItemsList.map((eachCartItem) => (
+          <CartItemPage
+            key={eachCartItem.productId}
+            productDetails={eachCartItem}
+            getCartItems={getCartItems}
+          />
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default Cart;

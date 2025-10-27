@@ -13,15 +13,16 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Signup />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/dashboard" element={<ProtectedRoute allowedRoles={["admin", "customer"]}><Dashboard /></ProtectedRoute> } />
-        <Route path="/add-category" element={<ProtectedRoute allowedRoles={["admin"]}> <AddCategory /> </ProtectedRoute> }></Route>
+        <Route exact path="/" element={<Signup />}></Route>
+        <Route exact path="/login" element={<Login />}></Route>
+        <Route exact path="/dashboard" element={<ProtectedRoute allowedRoles={["admin", "customer"]}><Dashboard /></ProtectedRoute> } />
+        <Route exact path="/add-category" element={<ProtectedRoute allowedRoles={["admin"]}> <AddCategory /> </ProtectedRoute> }></Route>
         <Route
+        exact
           path="/category-item-detailed-page/:id"
           element={<ProtectedRoute allowedRoles={["admin", "customer"]}> <CategoryItemDetailedPage /> </ProtectedRoute> }>
         </Route>
-        <Route path="/cart" element={<ProtectedRoute allowedRoles={["admin", "customer"]}><Cart /></ProtectedRoute>}></Route>
+        <Route exact path="/cart" element={<ProtectedRoute allowedRoles={["admin", "customer"]}><Cart /></ProtectedRoute>}></Route>
         <Route path="/not-found" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
